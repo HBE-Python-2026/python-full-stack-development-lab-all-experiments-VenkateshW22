@@ -1,0 +1,8 @@
+pytest
+pytest-flask
+flask
+django
+mysql-connector-python
+SQLAlchemy
+Flask-SQLAlchemy
+mock
