@@ -1,0 +1,120 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: 'Exp 01: Python Basics'
+      id: exp-01-python-basics
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 01: Python Basics'
+        setup-command: pip install -r requirements.txt
+        command: pytest tests/test_exp01.py
+        timeout: 2
+        max-score: 10
+    - name: 'Exp 02: Data Structures'
+      id: exp-02-data-structures
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 02: Data Structures'
+        setup-command: ''
+        command: pytest tests/test_exp02.py
+        timeout: 2
+        max-score: 10
+    - name: 'Exp 03: Functions'
+      id: exp-03-functions
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 03: Functions'
+        setup-command: ''
+        command: pytest tests/test_exp03.py
+        timeout: 2
+        max-score: 10
+    - name: 'Exp 04: OOP'
+      id: exp-04-oop
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 04: OOP'
+        setup-command: ''
+        command: pytest tests/test_exp04.py
+        timeout: 2
+        max-score: 10
+    - name: 'Exp 05: File I/O'
+      id: exp-05-file-i-o
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 05: File I/O'
+        setup-command: ''
+        command: pytest tests/test_exp05.py
+        timeout: 2
+        max-score: 10
+    - name: 'Exp 06: MySQL'
+      id: exp-06-mysql
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 06: MySQL'
+        setup-command: ''
+        command: pytest tests/test_exp06.py
+        timeout: 2
+        max-score: 10
+    - name: 'Exp 07: Flask Intro'
+      id: exp-07-flask-intro
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 07: Flask Intro'
+        setup-command: ''
+        command: pytest tests/test_exp07.py
+        timeout: 2
+        max-score: 10
+    - name: 'Exp 08: Flask Forms'
+      id: exp-08-flask-forms
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 08: Flask Forms'
+        setup-command: ''
+        command: pytest tests/test_exp08.py
+        timeout: 5
+        max-score: 10
+    - name: 'Exp 09: Django'
+      id: exp-09-django
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 09: Django'
+        setup-command: ''
+        command: pytest tests/test_exp09.py
+        timeout: 5
+        max-score: 10
+    - name: 'Exp 10: REST API'
+      id: exp-10-rest-api
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Exp 10: REST API'
+        setup-command: ''
+        command: pytest tests/test_exp10.py
+        timeout: 2
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        EXP-01-PYTHON-BASICS_RESULTS: "${{steps.exp-01-python-basics.outputs.result}}"
+        EXP-02-DATA-STRUCTURES_RESULTS: "${{steps.exp-02-data-structures.outputs.result}}"
+        EXP-03-FUNCTIONS_RESULTS: "${{steps.exp-03-functions.outputs.result}}"
+        EXP-04-OOP_RESULTS: "${{steps.exp-04-oop.outputs.result}}"
+        EXP-05-FILE-I-O_RESULTS: "${{steps.exp-05-file-i-o.outputs.result}}"
+        EXP-06-MYSQL_RESULTS: "${{steps.exp-06-mysql.outputs.result}}"
+        EXP-07-FLASK-INTRO_RESULTS: "${{steps.exp-07-flask-intro.outputs.result}}"
+        EXP-08-FLASK-FORMS_RESULTS: "${{steps.exp-08-flask-forms.outputs.result}}"
+        EXP-09-DJANGO_RESULTS: "${{steps.exp-09-django.outputs.result}}"
+        EXP-10-REST-API_RESULTS: "${{steps.exp-10-rest-api.outputs.result}}"
+      with:
+        runners: exp-01-python-basics,exp-02-data-structures,exp-03-functions,exp-04-oop,exp-05-file-i-o,exp-06-mysql,exp-07-flask-intro,exp-08-flask-forms,exp-09-django,exp-10-rest-api
